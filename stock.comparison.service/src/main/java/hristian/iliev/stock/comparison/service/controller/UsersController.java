@@ -2,6 +2,7 @@ package hristian.iliev.stock.comparison.service.controller;
 
 import hristian.iliev.stock.comparison.service.users.UsersService;
 import hristian.iliev.stock.comparison.service.users.entity.User;
+import lombok.AllArgsConstructor;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
+@AllArgsConstructor
 public class UsersController {
 
-  @Autowired
   private UsersService usersService;
 
   @GetMapping("/api/users/{username}")

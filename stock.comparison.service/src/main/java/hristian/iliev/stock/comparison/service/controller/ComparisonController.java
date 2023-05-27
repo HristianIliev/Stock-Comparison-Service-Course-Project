@@ -6,6 +6,7 @@ import hristian.iliev.stock.comparison.service.comparison.entity.Tag;
 import hristian.iliev.stock.comparison.service.stocks.StockQuoteService;
 import hristian.iliev.stock.comparison.service.users.UsersService;
 import hristian.iliev.stock.comparison.service.users.entity.User;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +16,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class ComparisonController {
 
-  @Autowired
   private UsersService usersService;
 
-  @Autowired
   private ComparisonService comparisonService;
 
-  @Autowired
   private StockQuoteService stockQuoteService;
 
   @GetMapping("/api/users/{username}/comparisons/names")

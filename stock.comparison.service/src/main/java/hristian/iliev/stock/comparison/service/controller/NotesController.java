@@ -4,6 +4,7 @@ import hristian.iliev.stock.comparison.service.comparison.ComparisonService;
 import hristian.iliev.stock.comparison.service.comparison.NoteService;
 import hristian.iliev.stock.comparison.service.comparison.entity.Note;
 import hristian.iliev.stock.comparison.service.users.UsersService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,15 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
+@AllArgsConstructor
 public class NotesController {
 
-  @Autowired
   private UsersService usersService;
 
-  @Autowired
   private ComparisonService comparisonService;
 
-  @Autowired
   private NoteService noteService;
 
   @DeleteMapping("/api/users/{username}/notes/{noteId}")

@@ -3,6 +3,7 @@ package hristian.iliev.stock.comparison.service.controller;
 import hristian.iliev.stock.comparison.service.comparison.entity.Comparison;
 import hristian.iliev.stock.comparison.service.comparison.entity.DiagramData;
 import hristian.iliev.stock.comparison.service.stocks.StockQuoteService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@AllArgsConstructor
 public class DiagramController {
 
-  @Autowired
   private StockQuoteService quoteService;
 
   @GetMapping("/api/diagrams")

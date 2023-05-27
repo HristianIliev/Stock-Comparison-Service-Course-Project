@@ -5,6 +5,7 @@ import hristian.iliev.stock.comparison.service.dashboard.entity.Chart;
 import hristian.iliev.stock.comparison.service.dashboard.entity.Dashboard;
 import hristian.iliev.stock.comparison.service.users.UsersService;
 import hristian.iliev.stock.comparison.service.users.entity.User;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.security.InvalidParameterException;
 
 @Controller
+@AllArgsConstructor
 public class DashboardController {
 
-  @Autowired
   private UsersService usersService;
 
-  @Autowired
   private DashboardService dashboardService;
 
   @PostMapping("/api/users/{username}/dashboards")
@@ -42,7 +42,7 @@ public class DashboardController {
 
   @DeleteMapping("/api/users/{username}/dashboards/{dashboardId}")
   public ResponseEntity deleteDashboard(@PathVariable String username, @PathVariable int dashboardId) {
-    dashboardService.deleteDashboard(new Long(dashboardId));
+    dashboardService.deleteDashboard(Long.valueOf(dashboardId));
 
     return ResponseEntity.ok().build();
   }

@@ -4,17 +4,17 @@ import hristian.iliev.stock.comparison.service.dashboard.entity.Chart;
 import hristian.iliev.stock.comparison.service.dashboard.entity.Dashboard;
 import hristian.iliev.stock.comparison.service.dashboard.repository.ChartRepository;
 import hristian.iliev.stock.comparison.service.dashboard.repository.DashboardRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.InvalidParameterException;
 
 @Service
+@AllArgsConstructor
 public class DomainDashboardService implements DashboardService {
 
-  @Autowired
   private DashboardRepository dashboardRepository;
 
-  @Autowired
   private ChartRepository chartRepository;
 
   @Override
