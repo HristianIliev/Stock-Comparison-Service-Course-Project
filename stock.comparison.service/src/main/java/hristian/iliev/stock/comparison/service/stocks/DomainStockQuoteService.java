@@ -141,12 +141,42 @@ public class DomainStockQuoteService implements StockQuoteService {
     DecimalFormat formatter = new DecimalFormat("#.##");
     formatter.setRoundingMode(RoundingMode.CEILING);
 
-    calculations.setAverageOfDifferences(Double.parseDouble(formatter.format(calculateAverageOfList(differences))));
-    calculations.setCorrelationCoefficient(Double.parseDouble(formatter.format(calculateCorrelationCoefficientBetween(firstStockQuotes, secondStockQuotes, periods))));
-    calculations.setMedianOfDifferences(Double.parseDouble(formatter.format(calculateMedianOf(differences))));
-    calculations.setModeOfDifferences(Double.parseDouble(formatter.format(calculateModeOf(differences))));
-    calculations.setStandardDeviationOfDifferences(Double.parseDouble(formatter.format(calculateStandardDeviationOf(differences))));
-    calculations.setZScoreOfDifferences(Double.parseDouble(formatter.format(calculateZScoreOf(differences))));
+    calculations.setAverageOfDifferences(
+            Double.parseDouble(
+            formatter
+            .format(calculateAverageOfList(differences))
+            .replace(',', '.')
+    ));
+    calculations.setCorrelationCoefficient(
+            Double.parseDouble(
+            formatter
+            .format(calculateCorrelationCoefficientBetween(firstStockQuotes, secondStockQuotes, periods))
+            .replace(',', '.')
+    ));
+    calculations.setMedianOfDifferences(
+            Double.parseDouble(
+            formatter
+            .format(calculateMedianOf(differences))
+            .replace(',', '.')
+    ));
+    calculations.setModeOfDifferences(
+            Double.parseDouble(
+            formatter
+            .format(calculateModeOf(differences))
+            .replace(',', '.')
+    ));
+    calculations.setStandardDeviationOfDifferences(
+            Double.parseDouble(
+            formatter
+            .format(calculateStandardDeviationOf(differences))
+            .replace(',', '.')
+    ));
+    calculations.setZScoreOfDifferences(
+            Double.parseDouble(
+            formatter
+            .format(calculateZScoreOf(differences))
+            .replace(',', '.')
+    ));
 
     if (comparison.getTag() != null) {
       calculations.setName(firstStockName + ":" + secondStockName + " <span class=\"badge\" style=\"background-color:" + comparison.getTag().getColor() + ";\">" + comparison.getTag().getName() + "</span>");
@@ -154,8 +184,18 @@ public class DomainStockQuoteService implements StockQuoteService {
       calculations.setName(firstStockName + ":" + secondStockName);
     }
 
-    calculations.setFirstLastKnownPrice(Double.parseDouble(formatter.format(firstStockQuotes.get(0).getClose())));
-    calculations.setSecondLastKnownPrice(Double.parseDouble(formatter.format(secondStockQuotes.get(0).getClose())));
+    calculations.setFirstLastKnownPrice(
+            Double.parseDouble(
+            formatter
+            .format(firstStockQuotes.get(0).getClose())
+            .replace(',', '.')
+    ));
+    calculations.setSecondLastKnownPrice(
+            Double.parseDouble(
+            formatter
+            .format(secondStockQuotes.get(0).getClose())
+            .replace(',', '.')
+    ));
 
     List<Double> firstDividends = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
@@ -167,8 +207,18 @@ public class DomainStockQuoteService implements StockQuoteService {
       secondDividends.add(secondStockQuotes.get(i).getDividend());
     }
 
-    calculations.setFirstAvgDividend(Double.parseDouble(formatter.format(calculateAverageOfList(firstDividends))));
-    calculations.setSecondAvgDividend(Double.parseDouble(formatter.format(calculateAverageOfList(secondDividends))));
+    calculations.setFirstAvgDividend(
+            Double.parseDouble(
+            formatter
+            .format(calculateAverageOfList(firstDividends))
+            .replace(',', '.')
+    ));
+    calculations.setSecondAvgDividend(
+            Double.parseDouble(
+            formatter
+            .format(calculateAverageOfList(secondDividends))
+            .replace(',', '.')
+    ));
 
     List<Integer> firstVolumes = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
@@ -216,7 +266,13 @@ public class DomainStockQuoteService implements StockQuoteService {
 
     List<Double> differences = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
-      differences.add(Double.parseDouble(decimalFormatter.format(firstStockQuotes.get(i).getClose() - secondStockQuotes.get(i).getClose())));
+      differences.add(
+              Double
+              .parseDouble(
+              decimalFormatter
+              .format(firstStockQuotes.get(i).getClose() - secondStockQuotes.get(i).getClose())
+              .replace(',', '.')
+      ));
     }
 
     List<String> times = new ArrayList<>();
@@ -230,12 +286,24 @@ public class DomainStockQuoteService implements StockQuoteService {
 
     List<Double> firstClosingPrices = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
-      firstClosingPrices.add(Double.parseDouble(decimalFormatter.format(firstStockQuotes.get(i).getClose())));
+      firstClosingPrices.add(
+              Double
+              .parseDouble(
+              decimalFormatter
+              .format(firstStockQuotes.get(i).getClose())
+              .replace(',', '.')
+      ));
     }
 
     List<Double> secondClosingPrices = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
-      secondClosingPrices.add(Double.parseDouble(decimalFormatter.format(secondStockQuotes.get(i).getClose())));
+      secondClosingPrices.add(
+              Double
+              .parseDouble(
+               decimalFormatter
+               .format(secondStockQuotes.get(i).getClose())
+               .replace(',', '.')
+      ));
     }
 
     List<Integer> firstVolumes = new ArrayList<>();
@@ -261,8 +329,18 @@ public class DomainStockQuoteService implements StockQuoteService {
     }
 
     ComparisonCalculations calculations = calculateComparisonData(comparison, periods);
-    calculations.setFirstAvgPrice(Double.parseDouble(decimalFormatter.format(calculateAverageOfList(firstClosingPrices))));
-    calculations.setSecondAvgPrice(Double.parseDouble(decimalFormatter.format(calculateAverageOfList(secondClosingPrices))));
+    calculations.setFirstAvgPrice(
+            Double.parseDouble(
+            decimalFormatter
+            .format(calculateAverageOfList(firstClosingPrices))
+            .replace(',', '.')
+    ));
+    calculations.setSecondAvgPrice(
+            Double.parseDouble(
+            decimalFormatter
+            .format(calculateAverageOfList(secondClosingPrices))
+            .replace(',', '.')
+    ));
 
     DiagramData diagramData = new DiagramData();
     diagramData.setDataPoints(dataPoints);
