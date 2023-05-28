@@ -318,7 +318,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"comparison\": {\n        \"firstStockName\": \"NVDA\",\n        \"secondStockName\": \"AMZN\"\n    },\n    \"text\": \"This is text for a note created through Postman\",\n    \"title\": \"Postman note\"\n}",
+					"raw": "{\n    \"comparison\": {\n        \"firstStockName\": \"AMZN\",\n        \"secondStockName\": \"META\"\n    },\n    \"text\": \"This is text for a note created through Postman\",\n    \"title\": \"Postman note\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
