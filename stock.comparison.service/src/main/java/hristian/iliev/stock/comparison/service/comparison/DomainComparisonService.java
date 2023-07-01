@@ -8,7 +8,6 @@ import hristian.iliev.stock.comparison.service.comparison.repository.NoteReposit
 import hristian.iliev.stock.comparison.service.comparison.repository.TagRepository;
 import hristian.iliev.stock.comparison.service.users.entity.User;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class DomainComparisonService implements ComparisonService {
-
 
   private ComparisonRepository comparisonRepository;
 
@@ -80,6 +78,20 @@ public class DomainComparisonService implements ComparisonService {
 
       tagRepository.deleteById(toDelete);
     }
+  }
+
+  @Override
+  public List<Tag> retrieveTagsOfUser(Long id) {
+    List<Tag> result = new ArrayList<>();
+
+    List<Tag> tags = (List<Tag>) tagRepository.findAll();
+    for (Tag tag : tags) {
+      if (tag.getUserId().equals(id)) {
+        result.add(tag);
+      }
+    }
+
+    return result;
   }
 
   @Override

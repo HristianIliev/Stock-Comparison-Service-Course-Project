@@ -2,17 +2,19 @@ package hristian.iliev.stock.comparison.service.controller;
 
 import hristian.iliev.stock.comparison.service.comparison.ComparisonService;
 import hristian.iliev.stock.comparison.service.comparison.entity.Comparison;
+import hristian.iliev.stock.comparison.service.comparison.entity.ComparisonCalculations;
 import hristian.iliev.stock.comparison.service.comparison.entity.Tag;
 import hristian.iliev.stock.comparison.service.stocks.StockQuoteService;
 import hristian.iliev.stock.comparison.service.users.UsersService;
 import hristian.iliev.stock.comparison.service.users.entity.User;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,6 +26,33 @@ public class ComparisonController {
   private ComparisonService comparisonService;
 
   private StockQuoteService stockQuoteService;
+
+  @GetMapping("/users/{username}/comparisons")
+  public String userComparisons(@PathVariable("username") String username, @RequestParam(value = "periods", required = false, defaultValue = "200") int periods, Model model) {
+    System.out.println("Retrieving comparisons for " + username + " for " + periods + " periods");
+    User user = usersService.retrieveUserByUsername(username);
+
+    if (user == null) {
+      return "error";
+    }
+
+    List<Comparison> comparisons = comparisonService.retrieveComparisonsByUser(user.getId());
+
+    List<ComparisonCalculations> comparisonCalculations = new ArrayList<>();
+    for (Comparison comparison : comparisons) {
+      comparisonCalculations.add(stockQuoteService.calculateComparisonData(comparison, periods));
+    }
+
+    model.addAttribute("comparisons", comparisonCalculations);
+
+    List<Tag> tags = comparisonService.retrieveTagsOfUser(user.getId());
+
+    model.addAttribute("tags", tags);
+    model.addAttribute("dashboards", user.getDashboards());
+    model.addAttribute("username", username);
+
+    return "home";
+  }
 
   @GetMapping("/api/users/{username}/comparisons/names")
   public ResponseEntity<List<Comparison>> userComparisonNames(@PathVariable String username) {

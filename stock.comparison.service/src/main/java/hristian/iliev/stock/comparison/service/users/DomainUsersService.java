@@ -4,7 +4,6 @@ import com.google.common.hash.Hashing;
 import hristian.iliev.stock.comparison.service.users.entity.User;
 import hristian.iliev.stock.comparison.service.users.repository.UsersRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

@@ -13,7 +13,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -34,11 +33,7 @@ import java.util.*;
 @AllArgsConstructor
 public class DomainStockQuoteService implements StockQuoteService {
 
-  private static final int MAX_PERIODS = 200;
-
   private QuoteRepository quoteRepository;
-
-  private TagRepository tagRepository;
 
   @Override
   public void updateStockQuotes() throws IOException, InterruptedException {
@@ -143,40 +138,40 @@ public class DomainStockQuoteService implements StockQuoteService {
 
     calculations.setAverageOfDifferences(
             Double.parseDouble(
-            formatter
-            .format(calculateAverageOfList(differences))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateAverageOfList(differences))
+                            .replace(',', '.')
+            ));
     calculations.setCorrelationCoefficient(
             Double.parseDouble(
-            formatter
-            .format(calculateCorrelationCoefficientBetween(firstStockQuotes, secondStockQuotes, periods))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateCorrelationCoefficientBetween(firstStockQuotes, secondStockQuotes, periods))
+                            .replace(',', '.')
+            ));
     calculations.setMedianOfDifferences(
             Double.parseDouble(
-            formatter
-            .format(calculateMedianOf(differences))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateMedianOf(differences))
+                            .replace(',', '.')
+            ));
     calculations.setModeOfDifferences(
             Double.parseDouble(
-            formatter
-            .format(calculateModeOf(differences))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateModeOf(differences))
+                            .replace(',', '.')
+            ));
     calculations.setStandardDeviationOfDifferences(
             Double.parseDouble(
-            formatter
-            .format(calculateStandardDeviationOf(differences))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateStandardDeviationOf(differences))
+                            .replace(',', '.')
+            ));
     calculations.setZScoreOfDifferences(
             Double.parseDouble(
-            formatter
-            .format(calculateZScoreOf(differences))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateZScoreOf(differences))
+                            .replace(',', '.')
+            ));
 
     if (comparison.getTag() != null) {
       calculations.setName(firstStockName + ":" + secondStockName + " <span class=\"badge\" style=\"background-color:" + comparison.getTag().getColor() + ";\">" + comparison.getTag().getName() + "</span>");
@@ -186,16 +181,16 @@ public class DomainStockQuoteService implements StockQuoteService {
 
     calculations.setFirstLastKnownPrice(
             Double.parseDouble(
-            formatter
-            .format(firstStockQuotes.get(0).getClose())
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(firstStockQuotes.get(0).getClose())
+                            .replace(',', '.')
+            ));
     calculations.setSecondLastKnownPrice(
             Double.parseDouble(
-            formatter
-            .format(secondStockQuotes.get(0).getClose())
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(secondStockQuotes.get(0).getClose())
+                            .replace(',', '.')
+            ));
 
     List<Double> firstDividends = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
@@ -209,16 +204,16 @@ public class DomainStockQuoteService implements StockQuoteService {
 
     calculations.setFirstAvgDividend(
             Double.parseDouble(
-            formatter
-            .format(calculateAverageOfList(firstDividends))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateAverageOfList(firstDividends))
+                            .replace(',', '.')
+            ));
     calculations.setSecondAvgDividend(
             Double.parseDouble(
-            formatter
-            .format(calculateAverageOfList(secondDividends))
-            .replace(',', '.')
-    ));
+                    formatter
+                            .format(calculateAverageOfList(secondDividends))
+                            .replace(',', '.')
+            ));
 
     List<Integer> firstVolumes = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
@@ -268,12 +263,11 @@ public class DomainStockQuoteService implements StockQuoteService {
     for (int i = 0; i < periods; i++) {
       differences.add(
               Double
-              .parseDouble(
-              decimalFormatter
-              .format(firstStockQuotes.get(i).getClose() - secondStockQuotes.get(i).getClose())
-              .replace(',', '.')
-      ));
-    }
+                      .parseDouble(
+                              decimalFormatter
+                                      .format(firstStockQuotes.get(i).getClose() - secondStockQuotes.get(i).getClose())
+                                      .replace(',', '.')
+                      ));    }
 
     List<String> times = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
@@ -288,23 +282,21 @@ public class DomainStockQuoteService implements StockQuoteService {
     for (int i = 0; i < periods; i++) {
       firstClosingPrices.add(
               Double
-              .parseDouble(
-              decimalFormatter
-              .format(firstStockQuotes.get(i).getClose())
-              .replace(',', '.')
-      ));
-    }
+                      .parseDouble(
+                              decimalFormatter
+                                      .format(firstStockQuotes.get(i).getClose())
+                                      .replace(',', '.')
+                      ));    }
 
     List<Double> secondClosingPrices = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
       secondClosingPrices.add(
               Double
-              .parseDouble(
-               decimalFormatter
-               .format(secondStockQuotes.get(i).getClose())
-               .replace(',', '.')
-      ));
-    }
+                      .parseDouble(
+                              decimalFormatter
+                                      .format(secondStockQuotes.get(i).getClose())
+                                      .replace(',', '.')
+                      ));    }
 
     List<Integer> firstVolumes = new ArrayList<>();
     for (int i = 0; i < periods; i++) {
@@ -331,16 +323,16 @@ public class DomainStockQuoteService implements StockQuoteService {
     ComparisonCalculations calculations = calculateComparisonData(comparison, periods);
     calculations.setFirstAvgPrice(
             Double.parseDouble(
-            decimalFormatter
-            .format(calculateAverageOfList(firstClosingPrices))
-            .replace(',', '.')
-    ));
+                    decimalFormatter
+                            .format(calculateAverageOfList(firstClosingPrices))
+                            .replace(',', '.')
+            ));
     calculations.setSecondAvgPrice(
             Double.parseDouble(
-            decimalFormatter
-            .format(calculateAverageOfList(secondClosingPrices))
-            .replace(',', '.')
-    ));
+                    decimalFormatter
+                            .format(calculateAverageOfList(secondClosingPrices))
+                            .replace(',', '.')
+            ));
 
     DiagramData diagramData = new DiagramData();
     diagramData.setDataPoints(dataPoints);

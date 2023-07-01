@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidParameterException;
 
@@ -42,7 +40,7 @@ public class DashboardController {
 
   @DeleteMapping("/api/users/{username}/dashboards/{dashboardId}")
   public ResponseEntity deleteDashboard(@PathVariable String username, @PathVariable int dashboardId) {
-    dashboardService.deleteDashboard(Long.valueOf(dashboardId));
+    dashboardService.deleteDashboard(new Long(dashboardId));
 
     return ResponseEntity.ok().build();
   }
@@ -64,6 +62,25 @@ public class DashboardController {
     }
 
     return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("/users/{username}/dashboards")
+  public String userComparisons(@PathVariable("username") String username, Model model) {
+    User user = usersService.retrieveUserByUsername(username);
+
+    model.addAttribute("dashboards", user.getDashboards());
+    model.addAttribute("username", username);
+
+    return "dashboards";
+  }
+
+  @GetMapping("/users/{username}/dashboards/{dashboardId}")
+  public String dashboardInformation(@PathVariable("username") String username, @PathVariable int dashboardId, Model model) {
+    Dashboard dashboard = dashboardService.retrieveById(new Long(dashboardId));
+
+    model.addAttribute("charts", dashboard.getCharts());
+
+    return "charts";
   }
 
 }

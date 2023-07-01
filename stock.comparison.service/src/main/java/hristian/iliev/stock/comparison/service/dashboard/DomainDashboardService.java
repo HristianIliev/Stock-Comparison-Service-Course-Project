@@ -5,7 +5,6 @@ import hristian.iliev.stock.comparison.service.dashboard.entity.Dashboard;
 import hristian.iliev.stock.comparison.service.dashboard.repository.ChartRepository;
 import hristian.iliev.stock.comparison.service.dashboard.repository.DashboardRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.security.InvalidParameterException;
 
@@ -42,6 +41,11 @@ public class DomainDashboardService implements DashboardService {
   @Override
   public void deleteDashboard(Long dashboardId) {
     dashboardRepository.deleteById(dashboardId);
+  }
+
+  @Override
+  public Dashboard retrieveById(Long dashboardId) {
+    return dashboardRepository.findById(dashboardId).get();
   }
 
 }
